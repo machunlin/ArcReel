@@ -10,7 +10,7 @@
   <br>
 </h1>
 
-<h4 align="center">开源 AI视频生成工作台 — 从小说到短视频，全程 AI Agent 驱动</h4>
+<h4 align="center">开源AI视频生成工作台 — 从小说到短视频，全程 AI Agent 驱动</h4>
 
 <p align="center">
   <a href="README.md"><img src="https://img.shields.io/badge/lang-中文-red?style=flat-square" alt="中文"></a>
