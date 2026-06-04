@@ -3,10 +3,10 @@
   <picture>
     <source media="(prefers-color-scheme: light)" srcset="frontend/public/android-chrome-maskable-512x512.png">
     <source media="(prefers-color-scheme: dark)" srcset="frontend/public/android-chrome-512x512.png">
-    <img src="frontend/public/android-chrome-maskable-512x512.png" alt="ArcReel Logo" width="128" style="border-radius: 16px;">
+    <img src="frontend/public/android-chrome-maskable-512x512.png" alt="AI漫剧 Logo" width="128" style="border-radius: 16px;">
   </picture>
   <br>
-  ArcReel
+  AI漫剧
   <br>
 </h1>
 
@@ -19,13 +19,13 @@
 
 <p align="center">
   <a href="#quick-start"><img src="https://img.shields.io/badge/Quick_Start-blue?style=for-the-badge" alt="Quick Start"></a>
-  <a href="https://github.com/ArcReel/ArcReel/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-AGPL--3.0-green?style=for-the-badge" alt="License"></a>
-  <a href="https://github.com/ArcReel/ArcReel"><img src="https://img.shields.io/github/stars/ArcReel/ArcReel?style=for-the-badge" alt="Stars"></a>
-  <a href="https://github.com/ArcReel/ArcReel/pkgs/container/arcreel"><img src="https://img.shields.io/badge/Docker-ghcr.io-blue?style=for-the-badge&logo=docker" alt="Docker"></a>
-  <a href="https://github.com/ArcReel/ArcReel/actions/workflows/test.yml"><img src="https://img.shields.io/github/actions/workflow/status/ArcReel/ArcReel/test.yml?style=for-the-badge&label=Tests" alt="Tests"></a>
-  <a href="https://codecov.io/gh/ArcReel/ArcReel"><img src="https://img.shields.io/codecov/c/github/ArcReel/ArcReel?style=for-the-badge&label=Coverage" alt="Coverage"></a>
-  <a href="https://github.com/ArcReel/ArcReel/security/code-scanning"><img src="https://img.shields.io/github/actions/workflow/status/ArcReel/ArcReel/codeql.yml?style=for-the-badge&label=CodeQL" alt="CodeQL"></a>
-  <a href="https://github.com/ArcReel/ArcReel/releases/latest"><img src="https://img.shields.io/github/v/release/ArcReel/ArcReel?style=for-the-badge&label=Release" alt="Release"></a>
+  <a href="https://github.com/AI漫剧/AI漫剧/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-AGPL--3.0-green?style=for-the-badge" alt="License"></a>
+  <a href="https://github.com/AI漫剧/AI漫剧"><img src="https://img.shields.io/github/stars/AI漫剧/AI漫剧?style=for-the-badge" alt="Stars"></a>
+  <a href="https://github.com/AI漫剧/AI漫剧/pkgs/container/arcreel"><img src="https://img.shields.io/badge/Docker-ghcr.io-blue?style=for-the-badge&logo=docker" alt="Docker"></a>
+  <a href="https://github.com/AI漫剧/AI漫剧/actions/workflows/test.yml"><img src="https://img.shields.io/github/actions/workflow/status/AI漫剧/AI漫剧/test.yml?style=for-the-badge&label=Tests" alt="Tests"></a>
+  <a href="https://codecov.io/gh/AI漫剧/AI漫剧"><img src="https://img.shields.io/codecov/c/github/AI漫剧/AI漫剧?style=for-the-badge&label=Coverage" alt="Coverage"></a>
+  <a href="https://github.com/AI漫剧/AI漫剧/security/code-scanning"><img src="https://img.shields.io/github/actions/workflow/status/AI漫剧/AI漫剧/codeql.yml?style=for-the-badge&label=CodeQL" alt="CodeQL"></a>
+  <a href="https://github.com/AI漫剧/AI漫剧/releases/latest"><img src="https://img.shields.io/github/v/release/AI漫剧/AI漫剧?style=for-the-badge&label=Release" alt="Release"></a>
 </p>
 
 <p align="center">
@@ -41,7 +41,7 @@
 </p>
 
 <p align="center">
-  <img src="docs/assets/hero-screenshot.png" alt="ArcReel Workspace" width="800">
+  <img src="docs/assets/hero-screenshot.png" alt="AI漫剧 Workspace" width="800">
 </p>
 
 ---
@@ -96,8 +96,8 @@ graph TD
 ### Default Deployment (SQLite)
 
 ```bash
-git clone https://github.com/ArcReel/ArcReel.git
-cd ArcReel/deploy
+git clone https://github.com/AI漫剧/AI漫剧.git
+cd AI漫剧/deploy
 cp .env.example .env
 docker compose up -d
 # Visit http://localhost:1241
@@ -106,14 +106,14 @@ docker compose up -d
 ### Production Deployment (PostgreSQL)
 
 ```bash
-cd ArcReel/deploy/production
+cd AI漫剧/deploy/production
 cp .env.example .env    # Set POSTGRES_PASSWORD
 docker compose up -d
 ```
 
 After first launch, log in with the default account (username `admin`, password set via `AUTH_PASSWORD` in `.env`; if not set, it will be auto-generated and written back to `.env` on first startup). Then go to **Settings** (`/settings`) to complete configuration:
 
-1. **ArcReel Agent** — Configure provider credentials that power the AI assistant. Supports Anthropic and compatible providers, with custom Base URL and model
+1. **AI漫剧 Agent** — Configure provider credentials that power the AI assistant. Supports Anthropic and compatible providers, with custom Base URL and model
 2. **AI Image/Video/Text Generation** — Configure at least one provider's API Key (Gemini / Volcengine Ark / Grok / OpenAI / Vidu), or add a custom provider
 
 > 📖 For detailed steps, see the [Getting Started Guide](docs/getting-started.md)
@@ -141,7 +141,7 @@ After first launch, log in with the default account (username `admin`, password 
 
 ## Provider Support
 
-ArcReel supports multiple built-in and custom providers through unified `ImageBackend` / `VideoBackend` / `TextBackend` protocols, switchable at global or project level:
+AI漫剧 supports multiple built-in and custom providers through unified `ImageBackend` / `VideoBackend` / `TextBackend` protocols, switchable at global or project level:
 
 ### Image Providers
 
@@ -184,7 +184,7 @@ Provider selection priority: Project-level settings > Global defaults. When swit
 
 ## AI Assistant Architecture
 
-ArcReel's AI assistant is built on the Claude Agent SDK, using an **Orchestration Skill + Focused Subagent** multi-agent architecture:
+AI漫剧's AI assistant is built on the Claude Agent SDK, using an **Orchestration Skill + Focused Subagent** multi-agent architecture:
 
 ```mermaid
 flowchart TD
@@ -210,10 +210,10 @@ flowchart TD
 
 ## OpenClaw Integration
 
-ArcReel supports invocation through external AI Agent platforms like [OpenClaw](https://openclaw.ai), enabling natural language-driven video creation:
+AI漫剧 supports invocation through external AI Agent platforms like [OpenClaw](https://openclaw.ai), enabling natural language-driven video creation:
 
-1. Generate an API Key in ArcReel's Settings page (`arc-` prefix)
-2. Load ArcReel's Skill definition in OpenClaw (access `http://your-domain/skill.md` to auto-fetch)
+1. Generate an API Key in AI漫剧's Settings page (`arc-` prefix)
+2. Load AI漫剧's Skill definition in OpenClaw (access `http://your-domain/skill.md` to auto-fetch)
 3. Create projects, generate scripts, and produce videos through OpenClaw conversations
 
 Technical implementation: API Key authentication (Bearer Token) + synchronous Agent chat endpoint (`POST /api/v1/agent/chat`), internally connects to SSE streaming assistant and collects complete responses.

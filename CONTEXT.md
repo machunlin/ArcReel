@@ -1,4 +1,4 @@
-# ArcReel
+# AI漫剧
 
 AI 视频生成平台：将小说转化为短视频。本文件是领域术语表（ubiquitous language），只定义概念，不含实现细节。
 
@@ -15,7 +15,7 @@ _Avoid_: vendor、channel。
 _Avoid_: client（太泛）、adapter（另有架构含义）。
 
 **内置 provider（built-in provider）**：
-ArcReel 启动时在 `PROVIDER_REGISTRY` 静态注册的供应商（如 `gemini-aistudio` / `gemini-vertex` / `ark` / `openai` / `grok` / `vidu`）。用户填凭证 + 选 model 即可使用；凭证字段可按供应商定制（如 Vertex AI 用 service account JSON、Ark 用 AKSK、Kling 用 JWT access+secret）。
+AI漫剧 启动时在 `PROVIDER_REGISTRY` 静态注册的供应商（如 `gemini-aistudio` / `gemini-vertex` / `ark` / `openai` / `grok` / `vidu`）。用户填凭证 + 选 model 即可使用；凭证字段可按供应商定制（如 Vertex AI 用 service account JSON、Ark 用 AKSK、Kling 用 JWT access+secret）。
 _Avoid_: preset（易与 model preset 混淆）、official（误读为"获 vendor 官方授权"）。
 
 **自定义 provider（custom provider）**：
@@ -49,7 +49,7 @@ _Avoid_: concurrency limit（太泛）。
 worker 内承载 slot 的数据结构（`lib/generation_worker.py:ProviderPool`），字段 `image_max` / `video_max` + 两个 `inflight: dict[task_id, asyncio.Task]`（TTS 落地后并列新增 `audio_max` + `audio_inflight`，见 `docs/adr/0010`）。inflight 字典是**worker 内存状态**，与 DB 中的 `status='running'` 必须配对维护——cancel 触发时由 worker 在 in-process task 字典里查到对应 asyncio.Task 后 `cancel()`，finally 收尾时从 inflight 移除并把 DB 从 `cancelling` 转 `cancelled`（见 `docs/adr/0006`）。`docs/adr/0006` 落地前 inflight 会出现「DB 改 cancelled 但 asyncio.Task 没被中断、名额仍被占」的撕裂，是已知遗留缺陷。
 
 **worker（GenerationWorker）**：
-ArcReel 中始终与 server 主进程**捆绑在同一个 uvicorn 进程内**的 background asyncio task，**不是**独立进程，**不是**集群成员。代码里的 `lease` / `heartbeat` / `requeue_running` 是早期遗留的"多 worker 协调"脚手架，从未被多进程使用。涉及 worker 的设计按"单进程 in-process 协调"思路。
+AI漫剧 中始终与 server 主进程**捆绑在同一个 uvicorn 进程内**的 background asyncio task，**不是**独立进程，**不是**集群成员。代码里的 `lease` / `heartbeat` / `requeue_running` 是早期遗留的"多 worker 协调"脚手架，从未被多进程使用。涉及 worker 的设计按"单进程 in-process 协调"思路。
 
 **孤儿任务（orphan task）**：
 DB 中状态为 `running` 但 worker 内存里没有对应 asyncio.Task 的任务。唯一现实成因是**服务重启**（部署 / 崩溃恢复）。处理原则：**不重新触发生成**（避免重复扣费），有 `provider_job_id` 的提交-轮询型任务理论上可恢复轮询，否则标 failed。

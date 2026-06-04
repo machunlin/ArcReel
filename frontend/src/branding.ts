@@ -18,11 +18,11 @@ function fallback(value: string | undefined, defaultValue: string): string {
 }
 
 export const BRAND = {
-  name: fallback(env.VITE_BRAND_NAME, "ArcReel"),
-  tagline: fallback(env.VITE_BRAND_TAGLINE, "AI 视频创作工作台"),
+  name: fallback(env.VITE_BRAND_NAME, "AI漫剧"),
+  tagline: fallback(env.VITE_BRAND_TAGLINE, "AI 漫剧创作工作台"),
   description: fallback(
     env.VITE_BRAND_DESCRIPTION,
-    "AI 视频创作工作台，统一管理项目、剧本、分镜、视频生成与助手对话。",
+    "AI 漫剧创作工作台，统一管理项目、剧本、分镜、视频生成与助手对话。",
   ),
 } as const;
 

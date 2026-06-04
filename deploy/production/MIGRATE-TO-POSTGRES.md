@@ -1,15 +1,15 @@
 # 从 SQLite 迁移到 PostgreSQL
 
-本文档适用于已使用默认 SQLite 部署 ArcReel、希望切换到 PostgreSQL 的场景。
+本文档适用于已使用默认 SQLite 部署 AI漫剧、希望切换到 PostgreSQL 的场景。
 
 ## 前置条件
 
 - 已安装 Docker 和 Docker Compose
-- ArcReel 当前使用 SQLite 运行（数据库文件位于 `projects/.arcreel.db`）
+- AI漫剧 当前使用 SQLite 运行（数据库文件位于 `projects/.arcreel.db`）
 
 ## 迁移步骤
 
-### 1. 停止 ArcReel 服务
+### 1. 停止 AI漫剧 服务
 
 ```bash
 # 如果通过 Docker 运行
@@ -50,7 +50,7 @@ docker compose ps  # 确认 postgres 状态为 healthy
 
 ### 5. 迁移数据
 
-在 ArcReel 容器内使用 pgloader 将 SQLite 数据直接迁移到 PostgreSQL：
+在 AI漫剧 容器内使用 pgloader 将 SQLite 数据直接迁移到 PostgreSQL：
 
 ```bash
 docker compose run --rm arcreel bash -c "

@@ -4,7 +4,7 @@ status: proposed
 
 # 自定义 provider 凭证模型固定为 `api_key` + `base_url`，多字段凭证协议只能走内置 provider
 
-ArcReel 的 `CustomProvider` ORM（`lib/db/models/custom_provider.py`）当前对每个用户运行时创建的供应商只暴露两个凭证字段：`api_key`（单字符串，受 `mask_secret` 掩蔽）+ `base_url`（HTTP 入口）。同期视频 API 协议适配调研发现多种"原生多字段凭证"协议：可灵 Kling 官方走 JWT HS256（`access_key` + `secret_key` 双密钥，30 分钟 token 过期），Vertex AI Veo 走 service account JSON 文件（`credentials_path`，再加上 project_id / OAuth2 scopes），火山 visual.volcengineapi.com 视觉 CV 走 AKSK + canonical request + HMAC 签名。这些协议如果原样作为 endpoint 暴露给自定义 provider，必须把 CustomProvider 凭证模型扩展为多字段（候选方案：新增 `extra_credentials: JSON` 字段、或新增 `api_secret` / `service_account_json` 等专字段）。
+AI漫剧 的 `CustomProvider` ORM（`lib/db/models/custom_provider.py`）当前对每个用户运行时创建的供应商只暴露两个凭证字段：`api_key`（单字符串，受 `mask_secret` 掩蔽）+ `base_url`（HTTP 入口）。同期视频 API 协议适配调研发现多种"原生多字段凭证"协议：可灵 Kling 官方走 JWT HS256（`access_key` + `secret_key` 双密钥，30 分钟 token 过期），Vertex AI Veo 走 service account JSON 文件（`credentials_path`，再加上 project_id / OAuth2 scopes），火山 visual.volcengineapi.com 视觉 CV 走 AKSK + canonical request + HMAC 签名。这些协议如果原样作为 endpoint 暴露给自定义 provider，必须把 CustomProvider 凭证模型扩展为多字段（候选方案：新增 `extra_credentials: JSON` 字段、或新增 `api_secret` / `service_account_json` 等专字段）。
 
 我们决定**不**扩展自定义 provider 的凭证模型。`CustomProvider` 长期固定 `api_key` 单字段 + `base_url`；任何"原生多字段凭证"协议**只能**通过内置 provider（`PROVIDER_REGISTRY.required_keys: list[str]`，已经支持多字段，例：`gemini-vertex.required_keys=["credentials_path"]`、Kling 计划 `required_keys=["access_key","secret_key"]`）接入。用户从中转站接多字段协议的兼容路径是**中转站做 protocol translation**——中转站在自己服务端解决多字段鉴权，对外暴露 Bearer `api_key` + 中转站 `base_url`（事实佐证：可灵中转站普遍用 `/kling/v1/videos/{text2video|image2video|multi-image2video}` 路径透传 Kling 原生 schema，但鉴权折叠成 Bearer 单密钥）。endpoint 闭包看到的永远是单 api_key。这是凭证模型与协议形态解耦的边界。
 
